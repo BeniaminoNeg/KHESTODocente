@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#F00</color>
+    <color name="color_pressed">#900</color>
+    <color name="color_ripple">#Faa</color>
+    <color name="color_primary_dark">#900</color>
+    <color name="color_accent">#F00</color>
+
+</resources>

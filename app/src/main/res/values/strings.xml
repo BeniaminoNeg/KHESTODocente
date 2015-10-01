@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">KHE-STO_Docente</string>
+    <string name="title_activity_login">Login</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- LOGIN -->
+    <string name="login_edittext_username">Username</string>
+    <string name="login_edittext_password">Password</string>
+    <string name="login_button_login">Login</string>
+    <string name="login_textview_errorlabel">Authentication failed! Username or password is wrong!</string>
+    <string name="login_textview_noconnectionlabel">No connecton! Check your connection status</string>
+    <string name="title_activity_professor_home">ProfessorHome</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test">Test</string>
+
+    <string name="title_section1">Courses</string>
+    <string name="title_section2">Files</string>
+    <string name="title_section3">Chat</string>
+    <string name="title_activity_course">Course</string>
+    <string name="upload_edittext_nomefile">Name</string>
+    <string name="dialog_uploadfile">Upload File!</string>
+    <string name="title_activity_vcourse">VCourse</string>
+    <string name="course_textview_sectionduepunti">Sections:</string>
+    <string name="title_activity_vsection">Sections</string>
+    <string name="stringclip"> </string>
+    <string name="upload_textview_dialogtitile">Upload your file!</string>
+    <string name="upload_edittext_description">Description</string>
+    <string name="upload_button_sfoglia">Browse</string>
+    <string name="upload_edittext_path">File</string>
+
+
+</resources>
