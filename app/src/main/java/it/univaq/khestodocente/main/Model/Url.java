@@ -9,9 +9,9 @@ import java.text.MessageFormat;
  */
 public class Url {
 
-    //private static final String ADDRESS = "http://192.168.1.9";//CASA
+    private static final String ADDRESS = "http://192.168.1.11";//CASA
     //private static final String ADDRESS = "http://10.150.18.41";//HOTSPOT
-    private static final String ADDRESS = "http://192.168.43.46";//NEXUS HOTSPOT
+    //private static final String ADDRESS = "http://192.168.43.46";//NEXUS HOTSPOT
     //private static final String ADDRESS = "http://10.175.10.81";//UNIVAQ
     private static final String BASE_URL = ":8080/KHE-STO/api/moodle/";
 

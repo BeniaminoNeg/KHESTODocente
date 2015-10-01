@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
@@ -79,6 +80,7 @@ public class DialogUpload extends DialogFragment {
         {
             courseId = ((VSection)getActivity()).getIdcorso();
             sectionId = ((VSection)getActivity()).getIdsezione();
+            System.out.println("SALVERO IL FILE IN QUESTA SECTION " + sectionId);
         }
 
         namefile_edittext = (EditText) rootView.findViewById(R.id.upload_edittext_namefile);
@@ -123,7 +125,8 @@ public class DialogUpload extends DialogFragment {
                 if (urifile != null)
                 {
                     System.out.println("Non era null");
-                    new UploadFileTask().execute(urifile.toString());
+                    File file = new File(urifile.toString());
+                    new UploadFileTask().execute(file);
                 }
                 else
                 {
@@ -142,10 +145,10 @@ public class DialogUpload extends DialogFragment {
         return builder.create();
     }
 
-    private class UploadFileTask extends AsyncTask <String,Void,JSONObject>{
+    private class UploadFileTask extends AsyncTask <File,Void,List<String>>{
         @Override
-        protected JSONObject doInBackground(String... files) {
-            JSONObject taskobject = new JSONObject();
+        protected List<String> doInBackground(File... files) {
+            List<String> taskobject = new ArrayList<String>();
             URL url = new Url().getUploadfileURL();
             System.out.println("URL per l' upload: " + url);
 
@@ -173,7 +176,7 @@ public class DialogUpload extends DialogFragment {
 
                     System.out.println("files[0] " + files[0]);
 
-                    multipart.addFilePart("fileUpload", new File(files[0]));
+                    multipart.addFilePart("fileUpload", files[0]);
 
                     List<String> response = multipart.finish();
 
@@ -183,18 +186,7 @@ public class DialogUpload extends DialogFragment {
                         System.out.println(line);
                     }
 
-//                    List <NameValuePair> params = new ArrayList<NameValuePair>();
-//                    Activity parent = getActivity();
-//                    if (parent instanceof VSection)
-//                    {
-//                        String courseId = ((VSection)getActivity()).getIdcorso();
-//                    }
-//
-//                    Long longuserId = Controller.getInstance().getUser().getId();
-//                    String userId = longuserId.toString();
-//                    String username = Controller.getInstance().getUser().getUsername();
-                    //System.out.println("La variabile map è: " + (Controller.getInstance().getmListcorses().toString()));
-                    //params.add(new BasicNameValuePair(""))
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -210,8 +202,19 @@ public class DialogUpload extends DialogFragment {
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonObject) {
-            super.onPostExecute(jsonObject);
+        protected void onPostExecute(List<String> list) {
+            super.onPostExecute(list);
+            //Context context = getApplicationContext();
+            /*String text = "SERVER REPLIED: ";
+            int duration = Toast.LENGTH_SHORT;
+            for (String line : list)
+            {
+                text = text + line;
+            }
+            Toast toast;
+            toast = Toast.makeText(getDialog().getContext(), text, duration);
+            toast.show();
+            */
         }
     }
 

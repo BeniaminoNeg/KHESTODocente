@@ -284,6 +284,8 @@ public class VCourse extends AppCompatActivity {
                 }
                 System.out.println("MAP SECTION HAS FILE DOPO I TRUE " + sectionHasFile.toString());
                 String idcorso = ((VCourse)getActivity()).idCorso;
+                System.out.println("STO PER PRENDERE LE SEZIONI NEL CONTROLLER CON QUESTO ID " + idcorso.toString());
+                System.out.println("NEL CONTROLLER C'E QUESTO SOTTO A SEZIONI " + Controller.getInstance().getCourseSections(idcorso).toString());
                 listview.setAdapter(new MyAdapter(getActivity(), Controller.getInstance().getCourseSections(idcorso)));
             }
 
@@ -347,7 +349,12 @@ public class VCourse extends AppCompatActivity {
                     System.out.println("MAP HAS FILE DENTRO ALL' ADAPTER " + sectionHasFile.toString());
                     if (sectionHasFile.get(currentsectionId))
                     {
+                        System.out.println(currentsectionId.toString() + " HA DEI FILE -> SETVISIBILITY");
                         holder.clipicon.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        System.out.println(currentsectionId.toString() + " NON HA DEI FILE -> SETVIS INVISIBLE");
+                        holder.clipicon.setVisibility(View.INVISIBLE);
                     }
                     return convertView;
                 }
