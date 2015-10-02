@@ -132,6 +132,7 @@ public class MultipartUtility {
 	public List<String> finish() throws IOException {
 		List<String> response = new ArrayList<String>();
 
+		//System.out.println("MPART UTILITY: " + writer);
 		writer.append(LINE_FEED).flush();
 		writer.append("--" + boundary + "--").append(LINE_FEED);
 		writer.close();

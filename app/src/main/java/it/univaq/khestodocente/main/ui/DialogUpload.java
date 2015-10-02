@@ -88,8 +88,7 @@ public class DialogUpload extends DialogFragment {
         filePath = (TextView) rootView.findViewById(R.id.upload_textview_path);
         sfogliaButton = (Button) rootView.findViewById(R.id.upload_button_sfoglia);
 
-        namefile = namefile_edittext.getText().toString();
-        descriptionfile = descriptionfile_edittext.getText().toString();
+
 
 
 
@@ -125,6 +124,10 @@ public class DialogUpload extends DialogFragment {
                 if (urifile != null)
                 {
                     System.out.println("Non era null");
+                    namefile = namefile_edittext.getText().toString();
+                    System.out.println("NAMEFILE " + namefile);
+                    descriptionfile = descriptionfile_edittext.getText().toString();
+                    System.out.println("DESCRIPTIONFILE " + descriptionfile);
                     File file = new File(urifile.toString());
                     new UploadFileTask().execute(file);
                 }
@@ -166,6 +169,8 @@ public class DialogUpload extends DialogFragment {
 
                     multipart.addHeaderField("User-Agent", "CodeJava");
                     multipart.addHeaderField("Test-Header", "Header-Value");
+
+                    System.out.println("PARAMETRI DEL POST: " + userId + " " + username + " " + courseId + " " + sectionId + " " + namefile + " " + descriptionfile) ;
 
                     multipart.addFormField("userid", userId);
                     multipart.addFormField("username", username);
