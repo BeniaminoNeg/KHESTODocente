@@ -23,18 +23,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_button_login"/>
+
     <TextView
         android:id="@+id/login_textview_errorlabel"
         android:text="@string/login_textview_errorlabel"
-        android:textColor="@android:color/holo_red_light"
+        style="@style/MyTheme.TextViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
 
     <TextView
         android:id="@+id/login_textview_noconnectionlabel"
+        style="@style/MyTheme.TextViewTitle"
         android:text="@string/login_textview_noconnectionlabel"
-        android:textColor="@android:color/holo_red_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible" />

@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.main.Model;
+package it.univaq.khestodocente.utils;
 
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -36,12 +36,12 @@ public class Downloader {
 
     }
 
-    public void download (JSONObject jsonobjitem) {
+    public void download (it.univaq.khestodocente.main.Model.File file) {
 
-        String url = jsonobjitem.optString("url");
+        String url = file.getUrl();
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        String filename = jsonobjitem.optString("filename");
+        String filename = file.getFilename();
         request.setTitle(filename);
         request.setDescription("Khe-Sto");
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);

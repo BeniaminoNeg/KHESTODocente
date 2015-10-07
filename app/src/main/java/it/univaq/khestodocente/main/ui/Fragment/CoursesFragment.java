@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.main.ui.fragment;
+package it.univaq.khestodocente.main.ui.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
-import it.univaq.khestodocente.main.ui.ProfessorHome;
-import it.univaq.khestodocente.main.ui.VCourse;
-import it.univaq.khestodocente.main.ui.VSection;
+import it.univaq.khestodocente.main.Model.Course;
+import it.univaq.khestodocente.main.ui.Activity.ProfessorHome;
+import it.univaq.khestodocente.main.ui.Activity.VCourse;
 
 public class CoursesFragment extends Fragment {
 
@@ -48,7 +48,7 @@ public class CoursesFragment extends Fragment {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String id = ((JSONObject) listView.getAdapter().getItem(i)).optString("id");
+                    long id = ((Course)listView.getAdapter().getItem(i)).getId();
                     Intent intent = new Intent(getActivity(), VCourse.class);
                     System.out.println("iesimo elemento nella list view " + listView.getAdapter().getItem(i).toString());
                     intent.putExtra("Id",id);
@@ -56,35 +56,36 @@ public class CoursesFragment extends Fragment {
 
                 }
             });
-
-            //System.out.println("Sone dentro al fragment, ARRAYLIST DELL' ACTIVITY: " + ((ProfessorHome) getActivity()).arraylistjsonobjcourse.toString());
+            ArrayList<Course> courses = Controller.getInstance().getUser().getCourses();
+            MyAdapter adapter = new MyAdapter(getActivity(), R.layout.adapter_corsi,courses);
+            listView.setAdapter(adapter);
             return rootView;
         }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if(Controller.getInstance().getArrlistJSONobjCourses() != null) {
+        /*
+        if(Controller.getInstance().getUser().getCourses() != null) {
             MyAdapter adapter = new MyAdapter(getActivity(), R.layout.adapter_corsi,
-                    Controller.getInstance().getArrlistJSONobjCourses());
-            System.out.println("PASSO DI QUA");
+                    Controller.getInstance().getUser().getCourses());
             listView.setAdapter(adapter);
         } else {
             ((ProfessorHome) context).setCallback(new ProfessorHome.OnRequestCallback() {
                 @Override
-                public void onComplete(ArrayList<JSONObject> data) {
-                    MyAdapter adapter = new MyAdapter(getActivity(), R.layout.adapter_corsi, data);
+                public void onComplete(ArrayList<Course> courses) {
+                    MyAdapter adapter = new MyAdapter(getActivity(), R.layout.adapter_corsi, courses);
                     listView.setAdapter(adapter);
                 }
             }, 1);
         }
+        */
     }
 
-    private class MyAdapter extends ArrayAdapter<JSONObject> {
+    private class MyAdapter extends ArrayAdapter<Course> {
 
-            public MyAdapter(Context context, int resource, ArrayList<JSONObject> objs) {
-                super(context, resource, objs);
+            public MyAdapter(Context context, int resource, ArrayList<Course> courses) {
+                super(context, resource, courses);
             }
 
             @Override
@@ -99,9 +100,7 @@ public class CoursesFragment extends Fragment {
                 } else {
                     holder = (ViewHolder) convertView.getTag();
                 }
-
-                holder.name.setText(getItem(position).optString("fullname"));
-
+                holder.name.setText(getItem(position).getName());
                 return convertView;
             }
 

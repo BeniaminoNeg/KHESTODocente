@@ -9,16 +9,17 @@ import java.text.MessageFormat;
  */
 public class Url {
 
-    private static final String ADDRESS = "http://192.168.1.11";//CASA
+    private static final String ADDRESS = "http://192.168.1.8";//CASA
+    //private static final String ADDRESS = "http://172.22.15.144";//Fabio
     //private static final String ADDRESS = "http://10.150.18.41";//HOTSPOT
     //private static final String ADDRESS = "http://192.168.43.46";//NEXUS HOTSPOT
-    //private static final String ADDRESS = "http://10.175.10.81";//UNIVAQ
-    private static final String BASE_URL = ":8080/KHE-STO/api/moodle/";
+    //private static final String ADDRESS = "http://10.175.50.235";//UNIVAQ
+    private static final String BASE_URL = ":8080/KHE-STO/api/moodle";
 
     private static final String PARAM_FILES = "files_course?courseid={0}";
     private static final String PARAM_COURSES = "student_courses?userid={0}";
     private static final String PARAM_SECTIONS = "sections_course?courseid={0}";
-    private static final String PARAM_LOGIN = "auth?username={0}&password={1}";
+    private static final String PARAM_LOGIN = "?username={0}&password={1}&token=";
     private static final String PARAM_UPLOAD = "uploadfile";
 
     public static final String URL_UPLOAD =  ADDRESS + BASE_URL + PARAM_UPLOAD;

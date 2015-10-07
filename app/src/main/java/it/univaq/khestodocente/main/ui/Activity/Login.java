@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.main.ui;
+package it.univaq.khestodocente.main.ui.Activity;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -25,7 +25,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -33,6 +32,7 @@ import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
 import it.univaq.khestodocente.main.Model.Url;
 import it.univaq.khestodocente.main.Model.User;
+import it.univaq.khestodocente.utils.HelperJSON;
 
 public class Login extends AppCompatActivity {
 
@@ -120,40 +120,12 @@ public class Login extends AppCompatActivity {
                             sb.append(line);
                         }
                         br.close();
-                        //System.out.println("Risposta= " + sb.toString());
-                        //return sb.toString();
-
                         String risultato = sb.toString();
-
-                        JSONObject jsonObj = new JSONObject(risultato);
-                        System.out.println("jsonObj = " + jsonObj.toString());
-
-                        Object dataObject = jsonObj.get("result");
-                        //System.out.println("ClassName= "+dataObject.getClass().getName());
+                        JSONObject rootObj = new JSONObject(risultato);
+                        Object dataObject = rootObj.get("result");
                         if (dataObject instanceof JSONObject)
                         {
-                            JSONObject dataJsonObject = (JSONObject) dataObject;
-                            long id = dataJsonObject.optLong("id");
-                            String username = dataJsonObject.optString("username");
-                            String firstname = dataJsonObject.optString("firstname");
-                            String lastname = dataJsonObject.optString("lastname");
-                            String email = dataJsonObject.optString("email");
-                            String lang = dataJsonObject.optString("lang");
-                            String picture_url = dataJsonObject.optString("picture_url");
-                            ArrayList<String> arraylistlastcourses = new ArrayList<String>();
-                            JSONObject jobjectlastcourses = dataJsonObject.optJSONObject("lastcourseaccess");
-                            Iterator<String> keysiterator = jobjectlastcourses.keys();
-                            System.out.println("iterator keys contiene: " + keysiterator.toString());
-                            while (keysiterator.hasNext())
-                            {
-                                arraylistlastcourses.add(keysiterator.next());
-                            }
-                            System.out.println("arraylistlastcourses: " +arraylistlastcourses.toString());
-                            System.out.println("elemento 0 arraylist: " +arraylistlastcourses.get(0));
-                            System.out.println("elemento 1 arraylist: " +arraylistlastcourses.get(1));
-
-                            Controller.getInstance().setUser(new User(
-                                    email,username,picture_url,lastname,arraylistlastcourses,lang,id,firstname));
+                            Controller.getInstance().setUser(HelperJSON.parseUserMoodle((JSONObject)dataObject));
                             taskobject = true;
                         }
                         else if (dataObject instanceof Boolean)
@@ -194,6 +166,8 @@ public class Login extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object s) {
                 System.out.println("Sono nell' on post execute del login task!!!!!!");
+                System.out.println("UTENTE APPENA CREATO: " );
+                System.out.println("CORSI " + Controller.getInstance().getUser().getCourses().toString());
                 System.out.println(s.getClass().getName());
 
                 if (s instanceof Boolean)
@@ -209,6 +183,7 @@ public class Login extends AppCompatActivity {
                     else {
                         Intent intent = new Intent(getActivity(),ProfessorHome.class);
                         getActivity().startActivity(intent);
+                        getActivity().finish();
                     }
                 }
 

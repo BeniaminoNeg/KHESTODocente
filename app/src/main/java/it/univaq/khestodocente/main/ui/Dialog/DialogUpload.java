@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.main.ui;
+package it.univaq.khestodocente.main.ui.Dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +33,7 @@ import java.util.List;
 import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
 import it.univaq.khestodocente.main.Model.Url;
+import it.univaq.khestodocente.main.ui.Activity.VSection;
 import it.univaq.khestodocente.utils.MultipartUtility;
 
 
@@ -59,9 +58,9 @@ public class DialogUpload extends DialogFragment {
 
     private Uri urifile;
 
-    private String courseId;
+    private Long courseId;
 
-    private String sectionId;
+    private Long sectionId;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -133,7 +132,7 @@ public class DialogUpload extends DialogFragment {
                 }
                 else
                 {
-                    System.out.println("Cazzo era null");
+                    System.out.println("era null");
                 }
 
             }
@@ -161,27 +160,32 @@ public class DialogUpload extends DialogFragment {
 
 
 
-                    Long longuserId = Controller.getInstance().getUser().getId();
+                    Long longuserId = Controller.getInstance().getUser().getIdmoodle();
                     String userId = longuserId.toString();
                     String username = Controller.getInstance().getUser().getUsername();
-                    //System.out.println("La variabile map è: " + (Controller.getInstance().getmListcorses().toString()));
-                    MultipartUtility multipart = new MultipartUtility(Url.URL_UPLOAD, "UTF-8");
+                    String stringCourseId = courseId.toString();
+                    String stringSectionId = sectionId.toString();
 
-                    multipart.addHeaderField("User-Agent", "CodeJava");
+                    String urls = "http://10.175.50.235/demo/script.php";
+                    MultipartUtility multipart = new MultipartUtility(urls, "UTF-8");
+
+                    multipart.addHeaderField("User-Agent", "JavaCode");
                     multipart.addHeaderField("Test-Header", "Header-Value");
 
                     System.out.println("PARAMETRI DEL POST: " + userId + " " + username + " " + courseId + " " + sectionId + " " + namefile + " " + descriptionfile) ;
 
+                    multipart.addFilePart("fileUpload", files[0]);
+
                     multipart.addFormField("userid", userId);
                     multipart.addFormField("username", username);
-                    multipart.addFormField("course", courseId);
-                    multipart.addFormField("section", sectionId);
+                    multipart.addFormField("course", stringCourseId);
+                    multipart.addFormField("section", stringSectionId);
                     multipart.addFormField("postName", namefile);
                     multipart.addFormField("postText", descriptionfile);
 
                     System.out.println("files[0] " + files[0]);
 
-                    multipart.addFilePart("fileUpload", files[0]);
+
 
                     List<String> response = multipart.finish();
 
@@ -209,17 +213,16 @@ public class DialogUpload extends DialogFragment {
         @Override
         protected void onPostExecute(List<String> list) {
             super.onPostExecute(list);
-            //Context context = getApplicationContext();
-            /*String text = "SERVER REPLIED: ";
+            String text = "SERVER REPLIED: ";
             int duration = Toast.LENGTH_SHORT;
             for (String line : list)
             {
                 text = text + line;
             }
             Toast toast;
-            toast = Toast.makeText(getDialog().getContext(), text, duration);
+            toast = Toast.makeText(getActivity(), text, duration);
             toast.show();
-            */
+            // TODO aggiornare il controller con il nuovo file
         }
     }
 

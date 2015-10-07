@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.main.ui.fragment;
+package it.univaq.khestodocente.main.ui.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;

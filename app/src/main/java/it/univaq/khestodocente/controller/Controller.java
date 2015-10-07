@@ -79,8 +79,7 @@ public class Controller {
         this.mapCourseSections.put(idcorso,newSections);
     }
 
-    public String parseMyDate (String stringTimestamp){
-        long timestamp = Long.parseLong(stringTimestamp);
+    public String parseMyDate (long timestamp){
         Calendar calendar = Calendar.getInstance(Locale.ITALY);
         calendar.setTimeInMillis(timestamp);
         String day = ((Integer)calendar.get(Calendar.DAY_OF_MONTH)).toString();

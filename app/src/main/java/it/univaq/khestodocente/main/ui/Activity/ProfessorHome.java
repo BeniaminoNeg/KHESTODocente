@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.main.ui;
+package it.univaq.khestodocente.main.ui.Activity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,10 +28,11 @@ import org.json.JSONObject;
 
 import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
+import it.univaq.khestodocente.main.Model.Course;
 import it.univaq.khestodocente.main.Model.Url;
-import it.univaq.khestodocente.main.ui.fragment.ChatFragment;
-import it.univaq.khestodocente.main.ui.fragment.FilesFragment;
-import it.univaq.khestodocente.main.ui.fragment.CoursesFragment;
+import it.univaq.khestodocente.main.ui.Fragment.ChatFragment;
+import it.univaq.khestodocente.main.ui.Fragment.FilesFragment;
+import it.univaq.khestodocente.main.ui.Fragment.CoursesFragment;
 import it.univaq.khestodocente.utils.SlidingTabLayout;
 
 public class ProfessorHome extends AppCompatActivity implements ActionBar.TabListener {
@@ -71,98 +72,15 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
 
         mSlidingTabLayout.setViewPager(mViewPager);
 
-        new CoursesRequestTask().execute(Controller.getInstance().getUser().getId());
+        ArrayList<Course> courses = Controller.getInstance().getUser().getCourses();
 
+        if(mCallback1 != null) mCallback1.onComplete(courses);
+        if(mCallback2 != null) mCallback2.onComplete(courses);
+        if(mCallback3 != null) mCallback3.onComplete(courses);
 
-        //System.out.println("000Attributo arraylist nel main dopo il task: " + this.arraylistjsonobjcourse.toString());
-        //System.out.println("Attributo utente nel main dopo il task: " + this.utente.toString());
-        //System.out.println("Attributo map nel main dopo il task: " + this.idToNamecourse.toString());
+        //new CoursesRequestTask().execute(Controller.getInstance().getUser().getId());
+
     }
-
-    private class CoursesRequestTask extends AsyncTask <Long, Void, ArrayList<JSONObject>> {
-        @Override
-        protected ArrayList<JSONObject> doInBackground(Long... params) {
-            ArrayList<JSONObject> taskobject = new ArrayList<>();
-            try {
-                URL url = new Url().getStudentcoursesURL(params[0]);
-                System.out.println("URL nel task dell' activity" + url);
-
-                if(Controller.getInstance().isOnline(ProfessorHome.this))
-                {
-                    HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                    urlc.setRequestMethod("GET");
-
-                    int code = urlc.getResponseCode();
-                    System.out.println("RESPONSE CODE " + code);
-
-                    InputStream is;
-                    if (code == HttpURLConnection.HTTP_OK) {
-                        is = urlc.getInputStream();
-                    } else is = urlc.getErrorStream();
-
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    String line;
-                    StringBuilder sb = new StringBuilder();
-                    while ((line = br.readLine()) != null){
-                        sb.append(line);
-                    }
-                    br.close();
-
-                    String risultato = sb.toString();
-
-                    JSONObject jsonObj= new JSONObject(risultato);
-                    System.out.println("jsonObjCorsi = " + jsonObj.toString());
-
-                    Object dataObject = jsonObj.get("result");
-                    if (dataObject instanceof JSONArray)
-                    {
-                        System.out.println("Ho ricevuto un JsonArray");
-
-                        JSONArray dataJsonArray = (JSONArray) dataObject;
-                        System.out.println("Il datajsonarray è questo: " + dataJsonArray.toString());
-                        if (dataJsonArray != null)
-                        {
-                            for (int i= 0; i<dataJsonArray.length(); i++)
-                            {
-                                taskobject.add(dataJsonArray.getJSONObject(i));
-                            }
-                        }
-                        else
-                        {
-                            System.out.println("JsonArray vuoto");
-                        }
-                        System.out.println("Variabile corsi: " + taskobject.toString());
-
-                    }
-                    else {
-                        System.out.println("Non ho ricevuto un JsonArray");
-                    }
-
-                }
-
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("finito il doinbackground dell0 activity");
-            return taskobject;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<JSONObject> jsonObjects) {
-            Controller.getInstance().setArrlistJSONobjCourses(jsonObjects);
-            if(mCallback1 != null) mCallback1.onComplete(jsonObjects);
-            if(mCallback2 != null) mCallback2.onComplete(jsonObjects);
-            if(mCallback3 != null) mCallback3.onComplete(jsonObjects);
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -249,12 +167,7 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
     }
 
     public interface OnRequestCallback {
-        void onComplete(ArrayList<JSONObject> data);
+        void onComplete(ArrayList<Course> courses);
     }
 
-    public void setCallback(OnRequestCallback callback, int number){
-        if(number == 1) mCallback1 = callback;
-        if(number == 2) mCallback2 = callback;
-        if(number == 3) mCallback3 = callback;
-    }
 }

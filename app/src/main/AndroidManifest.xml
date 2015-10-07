@@ -11,9 +11,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        android:theme="@style/MyTheme" >
         <activity
-            android:name=".main.ui.Login"
+            android:name=".main.ui.Activity.Login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.ui.ProfessorHome"
+            android:name=".main.ui.Activity.ProfessorHome"
             android:label="@string/title_activity_professor_home" >
         </activity>
         <activity
-            android:name=".main.ui.VCourse"
+            android:name=".main.ui.Activity.VCourse"
             android:label="@string/title_activity_course" />
         <activity
             android:name="com.nononsenseapps.filepicker.FilePickerActivity"
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.ui.VSection"
+            android:name=".main.ui.Activity.VSection"
             android:label="@string/title_activity_vsection" >
         </activity>
     </application>

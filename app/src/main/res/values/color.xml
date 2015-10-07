@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="theme_primarycolor">#00f</color>
+    <color name="theme_primarydark">#005</color>
+
     <color name="color_primary">#F00</color>
     <color name="color_pressed">#900</color>
     <color name="color_ripple">#Faa</color>
