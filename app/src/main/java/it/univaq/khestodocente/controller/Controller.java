@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 import it.univaq.khestodocente.main.Model.Message;
 import it.univaq.khestodocente.main.Model.Url;
 import it.univaq.khestodocente.main.Model.User;
-import it.univaq.khestodocente.utils.Async.AsyncMessages;
+
 
 /**
  * Created by beniamino on 22/09/15.

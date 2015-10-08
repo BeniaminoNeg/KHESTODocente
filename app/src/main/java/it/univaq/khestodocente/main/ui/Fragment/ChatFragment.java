@@ -109,7 +109,7 @@ public class ChatFragment extends Fragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.name.setText(getResources().getString(R.string.rooms_of) + getItem(position).getName());
+            holder.name.setText(getResources().getString(R.string.rooms_of) + " " + getItem(position).getName());
             return convertView;
         }
 

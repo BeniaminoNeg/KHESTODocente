@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
             protected Object doInBackground(String... params) {
                 Object taskobject = new Object();
                 try {
-                    URL url = new Url().getLoginURL(params[0],params[1]);
+                    URL url = Url.getLoginURL(params[0],params[1]);
                     System.out.println(url);
 
                     if (isOnline())
@@ -156,6 +156,7 @@ public class Login extends AppCompatActivity {
                 }
                 return taskobject;
             }
+
             public boolean isOnline() {
                 ConnectivityManager cm =
                         (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

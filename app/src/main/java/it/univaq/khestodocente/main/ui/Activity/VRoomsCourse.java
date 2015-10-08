@@ -48,7 +48,7 @@ public class VRoomsCourse extends AppCompatActivity {
         }
         if (!fullnamecorso.equals(""))
         {
-            setTitle( getResources().getString(R.string.rooms_of) + fullnamecorso);
+            setTitle( getResources().getString(R.string.rooms_of) + " " + fullnamecorso);
         }
     }
 

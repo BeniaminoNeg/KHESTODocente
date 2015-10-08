@@ -34,5 +34,8 @@
     <string name="rooms_of">Rooms of </string>
     <string name="unnamed_chat">Unnamed room</string>
 
+    <string name="chat_edit_hint">Write message</string>
+    <string name="titile_activity_chatdetails">Chat</string>
+
 
 </resources>

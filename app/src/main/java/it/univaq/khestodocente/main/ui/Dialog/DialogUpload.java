@@ -24,8 +24,16 @@ import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +42,7 @@ import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
 import it.univaq.khestodocente.main.Model.Url;
 import it.univaq.khestodocente.main.ui.Activity.VSection;
+import it.univaq.khestodocente.utils.HelperJSON;
 import it.univaq.khestodocente.utils.MultipartUtility;
 
 
@@ -83,7 +92,9 @@ public class DialogUpload extends DialogFragment {
         }
 
         namefile_edittext = (EditText) rootView.findViewById(R.id.upload_edittext_namefile);
+        namefile_edittext.setText("Nome File di prova");
         descriptionfile_edittext = (EditText) rootView.findViewById(R.id.upload_edittext_description);
+        descriptionfile_edittext.setText("Description di mannaggia santa");
         filePath = (TextView) rootView.findViewById(R.id.upload_textview_path);
         sfogliaButton = (Button) rootView.findViewById(R.id.upload_button_sfoglia);
 
@@ -151,7 +162,7 @@ public class DialogUpload extends DialogFragment {
         @Override
         protected List<String> doInBackground(File... files) {
             List<String> taskobject = new ArrayList<String>();
-            URL url = new Url().getUploadfileURL();
+            URL url = Url.getUploadfileURL();
             System.out.println("URL per l' upload: " + url);
 
             if (isOnline())
@@ -212,6 +223,7 @@ public class DialogUpload extends DialogFragment {
 
         @Override
         protected void onPostExecute(List<String> list) {
+            /*
             super.onPostExecute(list);
             String text = "SERVER REPLIED: ";
             int duration = Toast.LENGTH_SHORT;
@@ -222,7 +234,59 @@ public class DialogUpload extends DialogFragment {
             Toast toast;
             toast = Toast.makeText(getActivity(), text, duration);
             toast.show();
+            */
             // TODO aggiornare il controller con il nuovo file
+
+        }
+    }
+
+    private class UpdateFileListTask extends AsyncTask <Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            String risultato = "";
+            URL url = Url.getFilescourseURL(courseId.toString());
+            if (isOnline()) {
+                try {
+                    HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                    urlc.setRequestMethod("GET");
+
+                    int code = urlc.getResponseCode();
+                    System.out.println("RESPONSE CODE " + code);
+
+                    InputStream is;
+                    if (code == HttpURLConnection.HTTP_OK) {
+                        is = urlc.getInputStream();
+                    } else is = urlc.getErrorStream();
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                    String line;
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    br.close();
+                    risultato = sb.toString();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return risultato;
+        }
+
+        public boolean isOnline() {
+            ConnectivityManager cm =
+                    (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isConnectedOrConnecting();
+        }
+
+        @Override
+        protected void onPostExecute(String risultato) {
+            ArrayList<it.univaq.khestodocente.main.Model.File> filescourse = (ArrayList<it.univaq.khestodocente.main.Model.File>) HelperJSON.parseFilesCourse(risultato);
+            Controller.getInstance().getUser().getCourse(courseId).setFiles(filescourse);
         }
     }
 

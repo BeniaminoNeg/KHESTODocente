@@ -3,8 +3,6 @@
     android:layout_height="match_parent"
     android:background="@color/chat_container_background">
 
-    <include android:id="@+id/toolbar" layout="@layout/toolbar_chat" />
-
     <RelativeLayout
         android:id="@+id/chatdetails_layout_control"
         android:layout_width="match_parent"
@@ -46,7 +44,6 @@
         android:divider="@null"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-        android:layout_above="@id/chatdetails_layout_control"
-        android:layout_below="@id/toolbar" />
+        android:layout_above="@id/chatdetails_layout_control" />
 
 </RelativeLayout>

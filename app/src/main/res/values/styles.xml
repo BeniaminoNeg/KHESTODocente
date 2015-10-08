@@ -23,6 +23,31 @@
 
     </style>
 
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+
+        <item name="colorPrimary">@color/toolbar_primaryColor</item>
+        <item name="colorPrimaryDark">@color/toolbar_primaryColorDark</item>
+        <item name="android:textColorPrimary">@color/toolbar_colorAccent</item>
+        <item name="colorControlNormal">@color/toolbar_control</item>
+
+        <item name="android:windowBackground">@color/app_background</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="AppTheme.Base.Green" parent="AppTheme.Base">
+
+        <item name="colorPrimary">@color/green_toolbar_primaryColor</item>
+        <item name="colorPrimaryDark">@color/green_toolbar_primaryColorDark</item>
+        <item name="android:textColorPrimary">@color/green_toolbar_colorAccent</item>
+        <item name="colorControlNormal">@color/green_toolbar_control</item>
+
+    </style>
+
+    <style name="AppTheme.Green" parent="AppTheme.Base.Green" />
+
 
 
 

@@ -46,6 +46,9 @@
             android:name=".main.ui.Activity.VRoomsCourse"
             android:label="@string/title_activity_vchats_course" >
         </activity>
+        <activity android:name=".main.ui.Activity.ChatDetails"
+            android:label="@string/titile_activity_chatdetails">
+        </activity>
     </application>
 
 </manifest>

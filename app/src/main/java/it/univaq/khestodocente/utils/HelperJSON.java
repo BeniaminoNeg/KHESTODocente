@@ -208,6 +208,41 @@ public class HelperJSON {
 
         return new ArrayList<Message>();
     }
+
+    public static List<File> parseFilesCourse (String requestResult){
+        ArrayList<File>files= new ArrayList<>();
+        try {
+            if (requestResult != null){
+                if (isJsonObject(requestResult)){
+                    JSONObject jRoot = new JSONObject(requestResult);
+                    JSONArray jFiles = jRoot.getJSONArray("result");
+                    if (jFiles != null){
+                        for (int i= 0; i<jFiles.length(); i++){
+                            JSONObject jfile = jFiles.getJSONObject(i);
+
+                            File file = new File();
+
+                            file.setId(jfile.optLong("id"));
+                            file.setTime(jfile.optLong("timemodified"));
+                            file.setSize(jfile.optLong("filesize"));
+                            file.setAuthor(jfile.optString("author"));
+                            file.setMimetype(jfile.optString("mimetype"));
+                            file.setFilename(jfile.optString("filename"));
+                            file.setUrl(jfile.optString("url"));
+                            file.setUserid(jfile.optLong("userid"));
+                            file.setSectionid(jfile.optLong("section"));
+
+                            files.add(file);
+                        }
+                    }
+                }
+            }
+        }
+        catch(JSONException e){ e.printStackTrace(); }
+        return files;
+    }
+
+
     private static boolean isJsonObject(String result){
 
         try{
