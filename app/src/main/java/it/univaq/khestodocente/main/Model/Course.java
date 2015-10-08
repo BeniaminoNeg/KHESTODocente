@@ -84,6 +84,18 @@ public class Course {
         return chats;
     }
 
+    public Chat getChat (long id){
+        Chat chatcercata = null;
+        boolean trovata = false;
+        for (int i=0; i<chats.size() && !trovata; i++){
+            if (chats.get(i).getId() == id){
+                trovata = true;
+                chatcercata = chats.get(i);
+            }
+        }
+        return chatcercata;
+    }
+
     public void setChats(ArrayList<Chat> chats) {
         this.chats = chats;
     }

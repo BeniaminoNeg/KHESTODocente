@@ -10,4 +10,9 @@
     <color name="color_primary_dark">#900</color>
     <color name="color_accent">#F00</color>
 
+    <color name="green_toolbar_primaryColor">#259b24</color>
+    <color name="green_toolbar_primaryColorDark">#0d5302</color>
+    <color name="green_toolbar_colorAccent">#f1f8e9</color>
+    <color name="green_toolbar_control">#263238</color>
+
 </resources>

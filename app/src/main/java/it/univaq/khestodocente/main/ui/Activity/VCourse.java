@@ -140,7 +140,7 @@ public class VCourse extends AppCompatActivity {
 
                 sectionHasFile.put(currentSectionId, true);
             }
-            // TODO capire perchè il mapping tra sections e file è sbagliato
+
             System.out.println("MAP SECTION HAS FILE DOPO I TRUE " + sectionHasFile.toString());
 
             listview.setAdapter(new MyAdapter(getActivity(), sectionsCourse));

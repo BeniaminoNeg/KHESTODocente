@@ -3,9 +3,11 @@ package it.univaq.khestodocente.controller;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 
 import org.json.JSONObject;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,8 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
+import it.univaq.khestodocente.main.Model.Message;
+import it.univaq.khestodocente.main.Model.Url;
 import it.univaq.khestodocente.main.Model.User;
+import it.univaq.khestodocente.utils.Async.AsyncMessages;
 
 /**
  * Created by beniamino on 22/09/15.
@@ -113,4 +119,6 @@ public class Controller {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+
 }

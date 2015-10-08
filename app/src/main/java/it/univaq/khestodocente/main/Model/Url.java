@@ -9,11 +9,11 @@ import java.text.MessageFormat;
  */
 public class Url {
 
-    private static final String ADDRESS = "http://192.168.1.8";//CASA
+    //private static final String ADDRESS = "http://192.168.1.8";//CASA
     //private static final String ADDRESS = "http://172.22.15.144";//Fabio
     //private static final String ADDRESS = "http://10.150.18.41";//HOTSPOT
     //private static final String ADDRESS = "http://192.168.43.46";//NEXUS HOTSPOT
-    //private static final String ADDRESS = "http://10.175.50.235";//UNIVAQ
+    private static final String ADDRESS = "http://10.175.50.235";//UNIVAQ
     private static final String BASE_URL = ":8080/KHE-STO/api/moodle";
 
     private static final String PARAM_FILES = "files_course?courseid={0}";
@@ -21,6 +21,8 @@ public class Url {
     private static final String PARAM_SECTIONS = "sections_course?courseid={0}";
     private static final String PARAM_LOGIN = "?username={0}&password={1}&token=";
     private static final String PARAM_UPLOAD = "uploadfile";
+
+    public static final String URL_MOODLE_MESSAGES  = "/chat_messages?chatid={0}&page={1}&notfrom";
 
     public static final String URL_UPLOAD =  ADDRESS + BASE_URL + PARAM_UPLOAD;
     public static final String URL_LOGIN =  ADDRESS + BASE_URL + PARAM_LOGIN;
@@ -76,6 +78,16 @@ public class Url {
     public URL getUploadfileURL (){
         try {
             URL url = new URL(URL_UPLOAD);
+            return url;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public URL getMoodleMessageURL () {
+        try {
+            URL url = new URL(URL_MOODLE_MESSAGES);
             return url;
         } catch (MalformedURLException e) {
             e.printStackTrace();

@@ -144,7 +144,8 @@ public class VSection extends AppCompatActivity {
 
             for (int i=0; i<filesCourse.size(); i++)
             {
-                if (filesCourse.get(i).getId() == idsezione)
+                //System.out.println("id del " + i +"esimo file: " + filesCourse.get(i).getId() + " ----> confronto con id della sezione: "+idsezione );
+                if (filesCourse.get(i).getSectionid() == idsezione)
                 {
                     filesSection.add(filesCourse.get(i));
                 }

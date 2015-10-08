@@ -1,6 +1,7 @@
 package it.univaq.khestodocente.main.ui.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import it.univaq.khestodocente.R;
+import it.univaq.khestodocente.controller.Controller;
+import it.univaq.khestodocente.main.Model.Course;
+import it.univaq.khestodocente.main.ui.Activity.VCourse;
+import it.univaq.khestodocente.main.ui.Activity.VRoomsCourse;
 
 public class ChatFragment extends Fragment {
         /**
@@ -24,7 +29,7 @@ public class ChatFragment extends Fragment {
          */
         private static final String ARG_SECTION_NUMBER = "2";
 
-        private ListView listView;
+        private ListView listCourses;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -46,26 +51,21 @@ public class ChatFragment extends Fragment {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_professor_chat, container, false);
 
-            listView = (ListView) rootView.findViewById(R.id.professor_chat_listView_listchat);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listCourses = (ListView) rootView.findViewById(R.id.professor_chat_listView_listchat);
+            listCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String id = ((JSONObject) listView.getAdapter().getItem(i)).optString("id");
-                    String fullname = ((JSONObject) listView.getAdapter().getItem(i)).optString("fullname");
-
-                    System.out.println("Qui ci va la chat");
-
-                    /*
-                    Intent intent = new Intent(getActivity(), nomeview  );
-                    intent.putExtra("Id",id);
-                    intent.putExtra("fullname",fullname);
-
+                    long id = ((Course)listCourses.getAdapter().getItem(i)).getId();
+                    Intent intent = new Intent(getActivity(), VRoomsCourse.class);
+                    System.out.println("iesimo elemento nella list view " + listCourses.getAdapter().getItem(i).toString());
+                    intent.putExtra("IdCourseRooms",id);
                     getActivity().startActivity(intent); //LANCIO LA NUOVA VIEW
-
-                    */
 
                 }
             });
+            ArrayList<Course> courses = Controller.getInstance().getUser().getCourses();
+            MyAdapter adapter = new MyAdapter(getActivity(), R.layout.adapter_corsi,courses);
+            listCourses.setAdapter(adapter);
             return rootView;
         }
 
@@ -91,10 +91,10 @@ public class ChatFragment extends Fragment {
         */
     }
 
-    private class MyAdapter extends ArrayAdapter<JSONObject> {
+    private class MyAdapter extends ArrayAdapter<Course> {
 
-        public MyAdapter(Context context, int resource, ArrayList<JSONObject> objs) {
-            super(context, resource, objs);
+        public MyAdapter(Context context, int resource, ArrayList<Course> courses) {
+            super(context, resource, courses);
         }
 
         @Override
@@ -109,9 +109,7 @@ public class ChatFragment extends Fragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-            holder.name.setText(getItem(position).optString("fullname"));
-
+            holder.name.setText(getResources().getString(R.string.rooms_of) + getItem(position).getName());
             return convertView;
         }
 

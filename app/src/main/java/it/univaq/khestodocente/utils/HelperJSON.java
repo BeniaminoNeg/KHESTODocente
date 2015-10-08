@@ -5,11 +5,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.univaq.khestodocente.controller.Controller;
 import it.univaq.khestodocente.main.Model.Chat;
 import it.univaq.khestodocente.main.Model.Course;
 import it.univaq.khestodocente.main.Model.File;
+import it.univaq.khestodocente.main.Model.Message;
 import it.univaq.khestodocente.main.Model.Section;
 import it.univaq.khestodocente.main.Model.User;
 
@@ -141,5 +143,77 @@ public class HelperJSON {
         catch (JSONException e) { e.printStackTrace(); }
 
         return null;
+    }
+
+    public static List<Message> parseMessages(String requestResult){
+
+        try{
+            if(requestResult != null) {
+
+                if(isJsonObject(requestResult)) {
+
+                    JSONObject jRoot = new JSONObject(requestResult);
+                    JSONArray jMessages = jRoot.getJSONArray("result");
+                    if (jMessages != null) {
+
+                        ArrayList<Message> messages = new ArrayList<Message>();
+                        for (int i = 0; i < jMessages.length(); ++i) {
+
+                            JSONObject jMessage = jMessages.getJSONObject(i);
+
+                            Message message = new Message();
+                            message.setId(jMessage.optLong("id"));
+                            message.setIdProfessor(-1);
+                            message.setIdCourse(jMessage.optLong("chatid"));
+                            message.setIdUser(jMessage.optLong("userid"));
+                            message.setSurname("");
+                            message.setName(jMessage.optString("username"));
+                            message.setMessage(jMessage.optString("message"));
+                            message.setTimestamp(jMessage.optLong("timestamp"));
+
+                            messages.add(message);
+                        }
+                        return messages;
+                    }
+                }
+                else {
+
+                    JSONArray jMessages = new JSONArray(requestResult);
+                    if (jMessages != null) {
+
+                        ArrayList<Message> messages = new ArrayList<Message>();
+                        for (int i = 0; i < jMessages.length(); ++i) {
+
+                            JSONObject jMessage = jMessages.getJSONObject(i);
+
+                            Message message = new Message();
+                            message.setId(jMessage.optLong("id"));
+                            message.setIdCourse(jMessage.optLong("id_course"));
+                            message.setIdProfessor(jMessage.optLong("id_professor"));
+                            message.setIdUser(jMessage.optLong("id_user"));
+                            message.setSurname(jMessage.optString("surname"));
+                            message.setName(jMessage.optString("name"));
+                            message.setMessage(jMessage.optString("text"));
+                            message.setTimestamp(jMessage.optLong("timestamp"));
+
+                            messages.add(message);
+                        }
+
+                        return messages;
+                    }
+                }
+            }
+        }
+        catch(JSONException e){ e.printStackTrace(); }
+
+        return new ArrayList<Message>();
+    }
+    private static boolean isJsonObject(String result){
+
+        try{
+            JSONObject jsonObject = new JSONObject(result);
+            return true;
+        }
+        catch (JSONException e){ return false; }
     }
 }

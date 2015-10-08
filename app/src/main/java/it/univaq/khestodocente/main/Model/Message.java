@@ -1,10 +1,9 @@
-package it.univaq.khesto.model;
+package it.univaq.khestodocente.main.Model;
 
 /**
- * Created by developer on 29/10/14.
+ * Created by beniamino on 07/10/15.
  */
 public class Message {
-
     private long id;
     private long timestamp;
     private long idUser;

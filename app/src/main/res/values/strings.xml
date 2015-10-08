@@ -30,6 +30,9 @@
     <string name="upload_edittext_description">Description</string>
     <string name="upload_button_sfoglia">Browse</string>
     <string name="upload_edittext_path">File</string>
+    <string name="title_activity_vchats_course">VChatsCourse</string>
+    <string name="rooms_of">Rooms of </string>
+    <string name="unnamed_chat">Unnamed room</string>
 
 
 </resources>
