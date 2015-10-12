@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,9 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setTitle(R.string.login_title);
     }
 
     public static class LoginFragment extends Fragment {
@@ -47,9 +51,7 @@ public class Login extends AppCompatActivity {
         private TextView ErrorLabel;
         private TextView NoConnectionLabel;
 
-        public LoginFragment() {
-
-        }
+        public LoginFragment() {}
 
 
         @Override
@@ -120,20 +122,21 @@ public class Login extends AppCompatActivity {
                         br.close();
                         String risultato = sb.toString();
                         JSONObject rootObj = new JSONObject(risultato);
-                        Object dataObject = rootObj.get("result");
-                        if (dataObject instanceof JSONObject)
-                        {
-                            Controller.getInstance().setUser(HelperJSON.parseUserMoodle((JSONObject)dataObject));
-                            taskobject = true;
-                        }
-                        else if (dataObject instanceof Boolean)
-                        {
-                            boolean b = (boolean) dataObject;
-                            if (!b)
-                            {
-                                System.out.println("Authentication failed! Username or password is wrong!");
-                                taskobject= false;
+
+                        if(rootObj.has("result")) {
+                            Object dataObject = rootObj.get("result");
+                            if (dataObject instanceof JSONObject) {
+                                Controller.getInstance().setUser(HelperJSON.parseUserMoodle((JSONObject) dataObject));
+                                taskobject = true;
+                            } else if (dataObject instanceof Boolean) {
+                                boolean b = (boolean) dataObject;
+                                if (!b) {
+                                    System.out.println("Authentication failed! Username or password is wrong!");
+                                    taskobject = false;
+                                }
                             }
+                        } else {
+                            taskobject = false;
                         }
                     }
                     else
@@ -141,10 +144,6 @@ public class Login extends AppCompatActivity {
                         System.out.println("Connessione assente");
                         taskobject= "no_connection";
                     }
-
-
-
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

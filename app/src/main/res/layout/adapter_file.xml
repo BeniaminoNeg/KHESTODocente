@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/adapter_file_textname"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:padding="16sp"
-        />
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/adapter_file_author"
-        android:textSize="15sp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-    <TextView
-        android:id="@+id/adapter_file_course"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp" />
+            <TextView
+                android:id="@+id/adapter_file_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Data"
+                android:textColor="#555"
+                android:textSize="13sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adapter_file_date"
-        android:textSize="13sp"
-        android:layout_gravity="right" />
+            <TextView
+                android:id="@+id/adapter_file_textname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome file"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
 
+            <TextView
+                android:id="@+id/adapter_file_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Autore"
+                android:textColor="#555"
+                android:textSize="14sp"
+                />
 
+            <TextView
+                android:id="@+id/adapter_file_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Corso"
+                android:textColor="#555"
+                android:textSize="15sp" />
 
-</LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

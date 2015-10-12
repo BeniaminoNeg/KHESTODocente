@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,10 @@ public class VCourse extends AppCompatActivity {
         idCorso = b.getLong("Id");
         setContentView(R.layout.activity_course);
 
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setTitle(R.string.vcourse_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ArrayList<Course> corsi = Controller.getInstance().getUser().getCourses();
         String fullnamecorso= "";
         boolean trovato = false;
@@ -49,33 +54,13 @@ public class VCourse extends AppCompatActivity {
         }
         if (!fullnamecorso.equals(""))
         {
-            setTitle(fullnamecorso);
+            getSupportActionBar().setTitle(fullnamecorso);
         }
 
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_vcourse, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -177,6 +162,7 @@ public class VCourse extends AppCompatActivity {
                 else {
                     holder = (ViewHolder) convertView.getTag();
                 }
+
                 Section section = (Section)getItem(position);
                 if (!section.getTitle().equals("null"))
                 {
@@ -186,16 +172,24 @@ public class VCourse extends AppCompatActivity {
                 {
                     holder.title.setText("Section " + section.getNumber());
                 }
-                holder.description.setText(section.getDescription());
+
+                if (((Section) getItem(position)).getDescription().length() > 0){
+                    holder.description.setText(section.getDescription());
+                    holder.description.setVisibility(View.VISIBLE);
+                }
+                else {
+                    holder.description.setVisibility(View.GONE);
+                }
+
                 long currentsectionId= section.getId();
 
-                System.out.println("MAP HAS FILE DENTRO ALL' ADAPTER " + sectionHasFile.toString());
+
                 if (sectionHasFile.get(currentsectionId))
                 {
                     holder.clipicon.setVisibility(View.VISIBLE);
                 }
                 else {
-                    holder.clipicon.setVisibility(View.INVISIBLE);
+                    holder.clipicon.setVisibility(View.GONE);
                 }
                 return convertView;
             }
@@ -206,9 +200,5 @@ public class VCourse extends AppCompatActivity {
                 ImageView clipicon;
             }
         }
-
-
-
-
     }
 }

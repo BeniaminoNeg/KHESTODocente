@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- LOGIN -->
+    <string name="login_title">Login</string>
     <string name="login_edittext_username">Username</string>
     <string name="login_edittext_password">Password</string>
     <string name="login_button_login">Login</string>
@@ -18,12 +19,12 @@
 
     <string name="title_section1">Courses</string>
     <string name="title_section2">Files</string>
-    <string name="title_section3">Chat</string>
+    <string name="title_chat">Chat</string>
     <string name="title_activity_course">Course</string>
     <string name="upload_edittext_nomefile">Name</string>
     <string name="dialog_uploadfile">Upload File!</string>
     <string name="title_activity_vcourse">VCourse</string>
-    <string name="course_textview_sectionduepunti">Sections:</string>
+    <string name="course_textview_sectionduepunti">Sections</string>
     <string name="title_activity_vsection">Sections</string>
     <string name="stringclip"> </string>
     <string name="upload_textview_dialogtitile">Upload your file!</string>
@@ -36,6 +37,8 @@
 
     <string name="chat_edit_hint">Write message</string>
     <string name="titile_activity_chatdetails">Chat</string>
+    <string name="home_title">Home</string>
+    <string name="vcourse_title">Course</string>
 
 
 </resources>

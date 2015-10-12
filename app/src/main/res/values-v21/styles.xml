@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyTheme" parent="ThemeBase">
+
+        <item name="android:colorPrimary">@color/theme_primarycolor</item>
+        <item name="android:colorPrimaryDark">@color/theme_primarydark</item>
+
+    </style>
+
+</resources>

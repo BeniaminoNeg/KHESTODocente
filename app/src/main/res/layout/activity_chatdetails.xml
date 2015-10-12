@@ -3,6 +3,8 @@
     android:layout_height="match_parent"
     android:background="@color/chat_container_background">
 
+    <include layout="@layout/toolbar"/>
+
     <RelativeLayout
         android:id="@+id/chatdetails_layout_control"
         android:layout_width="match_parent"

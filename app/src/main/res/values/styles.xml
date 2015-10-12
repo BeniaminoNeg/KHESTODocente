@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MyTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="ThemeBase" parent="Theme.AppCompat.Light.NoActionBar"></style>
+
+    <style name="MyTheme" parent="ThemeBase">
 
         <item name="colorPrimary">@color/theme_primarycolor</item>
         <item name="colorPrimaryDark">@color/theme_primarydark</item>

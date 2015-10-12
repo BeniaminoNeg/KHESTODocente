@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="16dp"
     android:weightSum="1">
 
     <TextView
@@ -14,16 +15,22 @@
         android:text="@string/upload_textview_dialogtitile"
         />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/upload_edittext_namefile"
-        android:hint="@string/upload_edittext_nomefile"/>
-    <EditText
+        android:hint="@string/upload_edittext_nomefile"/></android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"><EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/upload_edittext_description"
-        android:hint="@string/upload_edittext_description"/>
+        android:hint="@string/upload_edittext_description"/></android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,12 +41,9 @@
             android:id="@+id/upload_textview_path"
             android:inputType="textEmailAddress"
             android:layout_width="0px"
+            android:layout_gravity="center_vertical"
             android:layout_weight="0.8"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
             android:hint="@string/upload_edittext_path" />
 
             <Button
