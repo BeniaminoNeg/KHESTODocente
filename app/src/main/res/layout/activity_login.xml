@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="it.univaq.khestodocente.View.Activity.Login$LoginFragment"
+        android:name="it.univaq.khestodocente.view.activity.Login$LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_login" />

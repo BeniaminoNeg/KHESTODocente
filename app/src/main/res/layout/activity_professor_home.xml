@@ -3,12 +3,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="it.univaq.khestodocente.View.Activity.ProfessorHome"
+    tools:context="it.univaq.khestodocente.view.activity.ProfessorHome"
     xmlns:tools="http://schemas.android.com/tools">
 
     <include layout="@layout/toolbar"/>
 
-    <it.univaq.khestodocente.Utils.SlidingTabLayout
+    <it.univaq.khestodocente.utils.SlidingTabLayout
         android:id="@+id/slidingtabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

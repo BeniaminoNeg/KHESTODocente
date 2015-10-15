@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="16dp"
     android:weightSum="1">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/upload_textview_dialogtitile"
         android:textColor="#000"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:text="@string/upload_textview_dialogtitile"
         />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/upload_edittext_namefile"
-        android:hint="@string/upload_edittext_nomefile"/></android.support.design.widget.TextInputLayout>
+        <EditText
+            android:id="@+id/upload_edittext_namefile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/upload_edittext_nomefile"/>
+    </android.support.design.widget.TextInputLayout>
+
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"><EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/upload_edittext_description"
-        android:hint="@string/upload_edittext_description"/></android.support.design.widget.TextInputLayout>
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/upload_edittext_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/upload_edittext_description"/>
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,18 +45,18 @@
 
         <TextView
             android:id="@+id/upload_textview_path"
-            android:inputType="textEmailAddress"
             android:layout_width="0px"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.8"
-            android:layout_height="wrap_content"
-            android:hint="@string/upload_edittext_path" />
+            android:hint="@string/upload_edittext_path"
+            android:inputType="textEmailAddress" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/upload_button_sfoglia"
-                android:text="@string/upload_button_sfoglia"/>
+        <Button
+            android:id="@+id/upload_button_sfoglia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_button_sfoglia"/>
 
     </LinearLayout>
 

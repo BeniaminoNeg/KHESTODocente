@@ -20,8 +20,8 @@
                 android:layout_marginRight="8dp"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/stringclip"
-                android:src="@android:drawable/ic_input_get"
-                android:tint="#010101"/>
+                android:src="@drawable/file"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

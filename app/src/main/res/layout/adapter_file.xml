@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome file"
-                android:textColor="#000"
+                android:textColor="@color/text_primary_color"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 />
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Autore"
-                android:textColor="#555"
+                android:textColor="@color/text_secondary_color"
                 android:textSize="14sp"
                 />
 
