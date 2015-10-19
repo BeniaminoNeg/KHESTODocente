@@ -151,6 +151,7 @@ public class VSection extends AppCompatActivity {
                     holder.filename=(TextView) convertView.findViewById(R.id.adapter_file_textname);
                     holder.author=(TextView) convertView.findViewById(R.id.adapter_file_author);
                     holder.date=(TextView) convertView.findViewById(R.id.adapter_file_date);
+                    holder.corso=(TextView) convertView.findViewById(R.id.adapter_file_course);
                     convertView.setTag(holder);
                 }
                 else {
@@ -163,6 +164,7 @@ public class VSection extends AppCompatActivity {
                 String date = Controller.getInstance().parseMyDate(timestamp);
                 System.out.println("DATA " + date);
                 holder.date.setText(date);
+                holder.corso.setVisibility(View.GONE);
                 return convertView;
             }
 
@@ -170,6 +172,7 @@ public class VSection extends AppCompatActivity {
                 TextView filename;
                 TextView author;
                 TextView date;
+                TextView corso;
             }
         }
 

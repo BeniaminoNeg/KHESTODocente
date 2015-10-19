@@ -7,11 +7,17 @@
     <color name="text_secondary_color">#555</color>
     <color name="white">#fff</color>
 
-    <color name="color_primary">#F00</color>
+    <color name="fab_color_primary">#F00</color>
+    <color name="fab_color_pressed">#900</color>
+    <color name="fab_color_ripple">#Faa</color>
+    <color name="fab_color_primary_dark">#900</color>
+    <color name="fab_color_accent">#F00</color>
+
+    <color name="color_primary">#2196F3</color>
     <color name="color_pressed">#900</color>
     <color name="color_ripple">#Faa</color>
-    <color name="color_primary_dark">#900</color>
-    <color name="color_accent">#F00</color>
+    <color name="color_primary_dark">#1E88E5</color>
+    <color name="color_accent">#2196F3</color>
 
     <color name="app_background">#ccc</color>
 

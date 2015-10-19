@@ -39,9 +39,9 @@
             android:layout_margin="16dp"
             android:src="@android:drawable/ic_input_add"
             android:tint="@color/white"
-            fab:fab_colorNormal="@color/color_primary"
-            fab:fab_colorPressed="@color/color_pressed"
-            fab:fab_colorRipple="@color/color_ripple" />
+            fab:fab_colorNormal="@color/fab_color_primary"
+            fab:fab_colorPressed="@color/fab_color_pressed"
+            fab:fab_colorRipple="@color/fab_color_ripple" />
 
     </RelativeLayout>
 

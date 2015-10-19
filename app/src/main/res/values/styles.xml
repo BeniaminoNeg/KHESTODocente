@@ -7,8 +7,6 @@
 
         <item name="colorPrimary">@color/theme_primarycolor</item>
         <item name="colorPrimaryDark">@color/theme_primarydark</item>
-
-
     </style>
 
 
@@ -57,20 +55,14 @@
 
 
     <!-- You can also inherit from NNF_BaseTheme.Light -->
-    <style name="FilePickerTheme" parent="NNF_BaseTheme">
-        <!-- Set these to match your theme -->
+    <style name="FilePickerTheme" parent="MyTheme">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
-
-        <!-- Need to set this also to style create folder dialog -->
         <item name="alertDialogTheme">@style/FilePickerAlertDialogTheme</item>
-
-        <!-- If you want to set a specific toolbar theme, do it here -->
-        <!-- <item name="nnf_toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
     </style>
 
-    <style name="FilePickerAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="FilePickerAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>

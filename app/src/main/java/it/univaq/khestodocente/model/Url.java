@@ -15,10 +15,10 @@ public class Url {
     //private static final String ADDRESS = "http://192.168.43.46";//NEXUS HOTSPOT
     //private static final String ADDRESS = "http://10.175.50.235";//UNIVAQ
 
-    private static final String ADDRESS = "http://khesto.univaq.it";//SERVER REMOTO
+    private static final String ADDRESS = "http://khesto3.univaq.it";//SERVER REMOTO
 
     //private static final String BASE_URL = ":8080/KHE-STO-ON-BOARD/api/moodle";//LOCALHOST
-    private static final String BASE_URL = "/KHE-STO/api/moodle";//SERVER REMOTO
+    private static final String BASE_URL = "/KHE-STO-ON-BOARD/api/moodle";//SERVER REMOTO
 
     private static final String PARAM_FILES = "files_course?courseid={0}";
     private static final String PARAM_COURSES = "student_courses?userid={0}";

@@ -57,8 +57,7 @@ public class FilesFragment extends Fragment {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    HashMap map = (HashMap) listView.getAdapter().getItem(i);
-                    File file = (File) map.get("material");
+                    File file = (File) listView.getAdapter().getItem(i);
                     new Downloader(getActivity()).download(file);
                 }
             });
