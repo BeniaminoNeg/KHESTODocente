@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/upload_textview_dialogtitile"
-        android:textColor="#000"
+        android:textColor="@color/text_primary_color"
         android:textSize="22sp"
         android:textStyle="bold"
         />

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/course_textview_sectionduepunti"
-        android:textColor="#000"
+        android:textColor="@color/text_primary_color"
         android:textSize="22sp"
         android:textStyle="bold"/>
 
@@ -38,7 +38,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:src="@android:drawable/ic_input_add"
-            android:tint="#fff"
+            android:tint="@color/white"
             fab:fab_colorNormal="@color/color_primary"
             fab:fab_colorPressed="@color/color_pressed"
             fab:fab_colorRipple="@color/color_ripple" />

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/course_textview_sectionduepunti"
-        android:textColor="#000"
+        android:textColor="@color/text_primary_color"
         android:textSize="22sp"
         android:textStyle="bold" />
 

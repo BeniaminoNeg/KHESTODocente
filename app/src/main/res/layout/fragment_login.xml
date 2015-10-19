@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#aaa"
+    android:background="@color/app_background"
     android:padding="16dp">
 
     <LinearLayout
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#fff"
+        android:background="@color/cardview_light_background"
         android:elevation="2dp"
         tools:context=".View.Activity.Login$LoginFragment">
 
