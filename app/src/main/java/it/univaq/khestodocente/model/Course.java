@@ -80,6 +80,10 @@ public class Course {
         this.files = files;
     }
 
+    public void addFile(File file){
+        this.files.add(file);
+    }
+
     public ArrayList<Chat> getChats() {
         return chats;
     }

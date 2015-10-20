@@ -61,7 +61,9 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
 
         mSlidingTabLayout.setViewPager(mViewPager);
 
+        //TODO quì un crash per utente a null
         ArrayList<Course> courses = Controller.getInstance().getUser().getCourses();
+
 
         if(mCallback1 != null) mCallback1.onComplete(courses);
         if(mCallback2 != null) mCallback2.onComplete(courses);

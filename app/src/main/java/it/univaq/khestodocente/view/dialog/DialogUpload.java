@@ -36,7 +36,7 @@ import java.util.List;
 
 import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
-import it.univaq.khestodocente.model.Url;
+import it.univaq.khestodocente.utils.Url;
 import it.univaq.khestodocente.view.activity.VSection;
 import it.univaq.khestodocente.utils.HelperJSON;
 import it.univaq.khestodocente.utils.MultipartUtility;
@@ -88,9 +88,7 @@ public class DialogUpload extends DialogFragment {
         }
 
         namefile_edittext = (EditText) rootView.findViewById(R.id.upload_edittext_namefile);
-        namefile_edittext.setText("Nome File di prova");
         descriptionfile_edittext = (EditText) rootView.findViewById(R.id.upload_edittext_description);
-        descriptionfile_edittext.setText("Description di mannaggia santa");
         filePath = (TextView) rootView.findViewById(R.id.upload_textview_path);
         sfogliaButton = (Button) rootView.findViewById(R.id.upload_button_sfoglia);
 
@@ -154,11 +152,11 @@ public class DialogUpload extends DialogFragment {
         return builder.create();
     }
 
-    private class UploadFileTask extends AsyncTask <File,Void,List<String>>{
+    private class UploadFileTask extends AsyncTask <File,Void,File>{
         @Override
-        protected List<String> doInBackground(File... files) {
-            List<String> taskobject = new ArrayList<String>();
+        protected File doInBackground(File... files) {
             URL url = Url.getUploadfileURL();
+
             System.out.println("URL per l' upload: " + url);
 
             if (isOnline())
@@ -169,6 +167,8 @@ public class DialogUpload extends DialogFragment {
                     String username = Controller.getInstance().getUser().getUsername();
                     String stringCourseId = courseId.toString();
                     String stringSectionId = sectionId.toString();
+                    String author = Controller.getInstance().getUser().getFirstname() + " " + Controller.getInstance().getUser().getLastname();
+                    System.out.println("Nome autore: " + author);
 
                     URL u = Url.getUploadfileURL();
                     MultipartUtility multipart = new MultipartUtility(u, "UTF-8");
@@ -177,17 +177,19 @@ public class DialogUpload extends DialogFragment {
                     multipart.addHeaderField("Test-Header", "Header-Value");
                     multipart.addFilePart("fileUpload", files[0]);
 
-                    multipart.addFormField("userid", userId);
-                    multipart.addFormField("username", username);
+                    multipart.addFormField("author", author);
                     multipart.addFormField("course", stringCourseId);
-                    multipart.addFormField("section", stringSectionId);
+                    //multipart.addFormField("add","add");
                     multipart.addFormField("postName", namefile);
-                    multipart.addFormField("postText", descriptionfile);
+                    multipart.addFormField("postDescription", descriptionfile);
+                    multipart.addFormField("section", stringSectionId);
+                    //multipart.addFormField("itemid", "null");
+                    multipart.addFormField("userid", userId);
 
                     System.out.println("files[0] " + files[0]);
 
                     List<String> response = multipart.finish();
-
+                    //TODO lancia eccezione con codice ritornato dal server 500, capire cosa c'è che non va
                     System.out.println("SERVER REPLIED:");
 
                     for (String line : response) {
@@ -199,7 +201,7 @@ public class DialogUpload extends DialogFragment {
                     e.printStackTrace();
                 }
             }
-            return taskobject;
+            return files[0];
         }
 
         public boolean isOnline() {
@@ -210,7 +212,8 @@ public class DialogUpload extends DialogFragment {
         }
 
         @Override
-        protected void onPostExecute(List<String> list) {
+        protected void onPostExecute(File file) {
+            //TODO dare un feedback mediante toast
             /*
             super.onPostExecute(list);
             String text = "SERVER REPLIED: ";
@@ -223,7 +226,7 @@ public class DialogUpload extends DialogFragment {
             toast = Toast.makeText(getActivity(), text, duration);
             toast.show();
             */
-            // TODO aggiornare il controller con il nuovo file
+            new UpdateFileListTask().execute();
 
         }
     }
@@ -233,7 +236,8 @@ public class DialogUpload extends DialogFragment {
         protected String doInBackground(Void... params) {
             String risultato = "";
             URL url = Url.getFilescourseURL(courseId.toString());
-            if (isOnline()) {
+            System.out.println("Url per l' aggiornamento " + url);
+            if (true) {
                 try {
                     HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
                     urlc.setRequestMethod("GET");

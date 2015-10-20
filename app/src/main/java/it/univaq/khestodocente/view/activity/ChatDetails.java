@@ -28,7 +28,7 @@ import java.util.List;
 import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
 import it.univaq.khestodocente.model.Message;
-import it.univaq.khestodocente.model.Url;
+import it.univaq.khestodocente.utils.Url;
 import it.univaq.khestodocente.view.adapter.MessageAdapter;
 import it.univaq.khestodocente.utils.HelperJSON;
 

@@ -1,4 +1,4 @@
-package it.univaq.khestodocente.model;
+package it.univaq.khestodocente.utils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +20,7 @@ public class Url {
     //private static final String BASE_URL = ":8080/KHE-STO-ON-BOARD/api/moodle";//LOCALHOST
     private static final String BASE_URL = "/KHE-STO-ON-BOARD/api/moodle";//SERVER REMOTO
 
-    private static final String PARAM_FILES = "files_course?courseid={0}";
+    private static final String PARAM_FILES = "/files_course?courseid={0}";
     private static final String PARAM_COURSES = "student_courses?userid={0}";
     private static final String PARAM_SECTIONS = "sections_course?courseid={0}";
     private static final String PARAM_LOGIN = "?username={0}&password={1}&token=";
@@ -28,8 +28,8 @@ public class Url {
     private static final String PARAM_MOODLE_MESSAGES = "/chat_messages?chatid={0}&page={1}&notfrom=";
     private static final String PARAM_MOODLE_PUT_MESSAGE = "/put_chat_message?chatid={0}&userid={1}&message={2}&courseId={3}";
 
-
     public static final String URL_UPLOAD =  ADDRESS + BASE_URL + PARAM_UPLOAD;
+    //public static final String URL_UPLOAD = "http://khesto.univaq.it/KHE-STO/api/moodle/uploadfile";
     public static final String URL_LOGIN =  ADDRESS + BASE_URL + PARAM_LOGIN;
     public static final String URL_FILES =  ADDRESS + BASE_URL + PARAM_FILES;
     public static final String URL_COURSES =  ADDRESS + BASE_URL + PARAM_COURSES;

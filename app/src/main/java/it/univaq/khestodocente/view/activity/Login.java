@@ -29,7 +29,7 @@ import java.net.URL;
 
 import it.univaq.khestodocente.R;
 import it.univaq.khestodocente.controller.Controller;
-import it.univaq.khestodocente.model.Url;
+import it.univaq.khestodocente.utils.Url;
 import it.univaq.khestodocente.utils.HelperJSON;
 
 public class Login extends AppCompatActivity {
@@ -61,9 +61,7 @@ public class Login extends AppCompatActivity {
             View root = inflater.inflate(R.layout.fragment_login, container, false);
 
             Username = (EditText) root.findViewById(R.id.login_edittext_username);
-            Username.setText("admin");
             Password = (EditText) root.findViewById(R.id.login_edittext_password);
-            Password.setText("admin");
             Login_button = (Button) root.findViewById(R.id.login_button_login);
             Login_button.setOnClickListener(new View.OnClickListener() {
                 @Override

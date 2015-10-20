@@ -137,7 +137,9 @@ public class MultipartUtility {
 
 		// checks server's status code first
 		int status = httpConn.getResponseCode();
+		System.out.println("Il codice ritornato dal server è " + status);
 		if (status == HttpURLConnection.HTTP_OK) {
+
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					httpConn.getInputStream()));
 			String line = null;
