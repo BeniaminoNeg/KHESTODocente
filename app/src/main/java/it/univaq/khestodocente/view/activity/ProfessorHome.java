@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,14 +33,12 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
-    private OnRequestCallback mCallback1, mCallback2, mCallback3;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
     SlidingTabLayout mSlidingTabLayout;
+    private OnRequestCallback mCallback1, mCallback2, mCallback3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +60,19 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
 
         mSlidingTabLayout.setViewPager(mViewPager);
 
-        //TODO quì un crash per utente a null
-        ArrayList<Course> courses = Controller.getInstance().getUser().getCourses();
+        ArrayList<Course> courses = new ArrayList<>();
+        if (Controller.getInstance().getUser() != null) {
 
+            courses = Controller.getInstance().getUser().getCourses();
+        } else {
+            startActivity(new Intent(this, Login.class));
+            finish();
+        }
 
-        if(mCallback1 != null) mCallback1.onComplete(courses);
-        if(mCallback2 != null) mCallback2.onComplete(courses);
-        if(mCallback3 != null) mCallback3.onComplete(courses);
+        if (mCallback1 != null) mCallback1.onComplete(courses);
+        if (mCallback2 != null) mCallback2.onComplete(courses);
+        if (mCallback3 != null) mCallback3.onComplete(courses);
 
-        //new CoursesRequestTask().execute(Controller.getInstance().getUser().getId());
 
     }
 
@@ -86,6 +89,10 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    public interface OnRequestCallback {
+        void onComplete(ArrayList<Course> courses);
     }
 
     /**
@@ -133,10 +140,6 @@ public class ProfessorHome extends AppCompatActivity implements ActionBar.TabLis
             }
             return null;
         }
-    }
-
-    public interface OnRequestCallback {
-        void onComplete(ArrayList<Course> courses);
     }
 
 }

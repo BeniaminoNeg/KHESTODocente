@@ -51,7 +51,8 @@ public class Login extends AppCompatActivity {
         private TextView ErrorLabel;
         private TextView NoConnectionLabel;
 
-        public LoginFragment() {}
+        public LoginFragment() {
+        }
 
 
         @Override
@@ -71,12 +72,12 @@ public class Login extends AppCompatActivity {
             });
 
             ErrorLabel = (TextView) root.findViewById(R.id.login_textview_errorlabel);
-            NoConnectionLabel= (TextView) root.findViewById(R.id.login_textview_noconnectionlabel);
+            NoConnectionLabel = (TextView) root.findViewById(R.id.login_textview_noconnectionlabel);
 
             return root;
         }
 
-        void Login () {
+        void Login() {
             String username = Username.getText().toString();
             String password = Password.getText().toString();
 
@@ -88,18 +89,16 @@ public class Login extends AppCompatActivity {
         }
 
 
-
-        private class LoginTask extends AsyncTask<String, Void, Object>{
+        private class LoginTask extends AsyncTask<String, Void, Object> {
 
             @Override
             protected Object doInBackground(String... params) {
                 Object taskobject = new Object();
                 try {
-                    URL url = Url.getLoginURL(params[0],params[1]);
+                    URL url = Url.getLoginURL(params[0], params[1]);
                     System.out.println(url);
 
-                    if (isOnline())
-                    {
+                    if (isOnline()) {
                         HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
                         urlc.setRequestMethod("GET");
 
@@ -107,21 +106,21 @@ public class Login extends AppCompatActivity {
                         System.out.println("RESPONSE CODE " + code);
 
                         InputStream is;
-                        if(code == HttpURLConnection.HTTP_OK) {
+                        if (code == HttpURLConnection.HTTP_OK) {
                             is = urlc.getInputStream();
                         } else is = urlc.getErrorStream();
 
                         BufferedReader br = new BufferedReader(new InputStreamReader(is));
                         String line;
                         StringBuilder sb = new StringBuilder();
-                        while((line = br.readLine()) != null){
+                        while ((line = br.readLine()) != null) {
                             sb.append(line);
                         }
                         br.close();
                         String risultato = sb.toString();
                         JSONObject rootObj = new JSONObject(risultato);
 
-                        if(rootObj.has("result")) {
+                        if (rootObj.has("result")) {
                             Object dataObject = rootObj.get("result");
                             if (dataObject instanceof JSONObject) {
                                 Controller.getInstance().setUser(HelperJSON.parseUserMoodle((JSONObject) dataObject));
@@ -136,11 +135,9 @@ public class Login extends AppCompatActivity {
                         } else {
                             taskobject = false;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         System.out.println("Connessione assente");
-                        taskobject= "no_connection";
+                        taskobject = "no_connection";
                     }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -162,26 +159,21 @@ public class Login extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object s) {
 
-                if (s instanceof Boolean)
-                {
+                if (s instanceof Boolean) {
                     Boolean s_boolean = (Boolean) s;
-                    if (!s_boolean)
-                    {
+                    if (!s_boolean) {
                         ErrorLabel.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        Intent intent = new Intent(getActivity(),ProfessorHome.class);
+                    } else {
+                        Intent intent = new Intent(getActivity(), ProfessorHome.class);
                         getActivity().startActivity(intent);
                         getActivity().finish();
                     }
                 }
 
-                if (s instanceof String)
-                {
+                if (s instanceof String) {
                     String s_string = (String) s;
                     System.out.println(s_string);
-                    if (s_string.equals("no_connection"))
-                    {
+                    if (s_string.equals("no_connection")) {
                         NoConnectionLabel.setVisibility(View.VISIBLE);
                     }
                 }

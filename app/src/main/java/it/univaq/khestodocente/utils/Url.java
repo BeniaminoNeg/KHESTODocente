@@ -9,15 +9,7 @@ import java.text.MessageFormat;
  */
 public class Url {
 
-    //private static final String ADDRESS = "http://192.168.1.3";//CASA
-    //private static final String ADDRESS = "http://172.22.15.144";//Fabio
-    //private static final String ADDRESS = "http://10.150.18.41";//HOTSPOT
-    //private static final String ADDRESS = "http://192.168.43.46";//NEXUS HOTSPOT
-    //private static final String ADDRESS = "http://10.175.50.235";//UNIVAQ
-
     private static final String ADDRESS = "http://khesto3.univaq.it";//SERVER REMOTO
-
-    //private static final String BASE_URL = ":8080/KHE-STO-ON-BOARD/api/moodle";//LOCALHOST
     private static final String BASE_URL = "/KHE-STO-ON-BOARD/api/moodle";//SERVER REMOTO
 
     private static final String PARAM_FILES = "/files_course?courseid={0}";
@@ -28,8 +20,8 @@ public class Url {
     private static final String PARAM_MOODLE_MESSAGES = "/chat_messages?chatid={0}&page={1}&notfrom=";
     private static final String PARAM_MOODLE_PUT_MESSAGE = "/put_chat_message?chatid={0}&userid={1}&message={2}&courseId={3}";
 
+    //alcuni non utilizzati a seguito dell' utilizzo dell' api unica
     public static final String URL_UPLOAD =  ADDRESS + BASE_URL + PARAM_UPLOAD;
-    //public static final String URL_UPLOAD = "http://khesto.univaq.it/KHE-STO/api/moodle/uploadfile";
     public static final String URL_LOGIN =  ADDRESS + BASE_URL + PARAM_LOGIN;
     public static final String URL_FILES =  ADDRESS + BASE_URL + PARAM_FILES;
     public static final String URL_COURSES =  ADDRESS + BASE_URL + PARAM_COURSES;

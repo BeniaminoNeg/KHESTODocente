@@ -27,12 +27,12 @@ public class Downloader {
 
 
     public Downloader(Activity activity) {
-        mActivity=activity;
+        mActivity = activity;
         downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
 
     }
 
-    public void download (it.univaq.khestodocente.model.File file) {
+    public void download(it.univaq.khestodocente.model.File file) {
 
         String url = file.getUrl();
         Uri uri = Uri.parse(url);
@@ -49,11 +49,9 @@ public class Downloader {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String extraId = DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS;
-                long [] references = intent.getLongArrayExtra(extraId);
-                for (long reference : references)
-                {
-                    if (reference == myDownloadReference)
-                    {
+                long[] references = intent.getLongArrayExtra(extraId);
+                for (long reference : references) {
+                    if (reference == myDownloadReference) {
 
                     }
                 }
@@ -64,9 +62,8 @@ public class Downloader {
         recieverDownloadComplete = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1);
-                if (myDownloadReference == reference)
-                {
+                long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (myDownloadReference == reference) {
                     //
                     DownloadManager.Query query = new DownloadManager.Query();
                     query.setFilterById(reference);

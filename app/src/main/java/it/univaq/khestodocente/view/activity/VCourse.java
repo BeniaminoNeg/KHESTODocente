@@ -39,24 +39,19 @@ public class VCourse extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayList<Course> corsi = Controller.getInstance().getUser().getCourses();
-        String fullnamecorso= "";
+        String fullnamecorso = "";
         boolean trovato = false;
-        for (int i=0; i<corsi.size() && !trovato; i++)
-        {
-            if (corsi.get(i).getId() == idCorso)
-            {
+        for (int i = 0; i < corsi.size() && !trovato; i++) {
+            if (corsi.get(i).getId() == idCorso) {
                 trovato = true;
                 fullnamecorso = corsi.get(i).getName();
             }
         }
-        if (!fullnamecorso.equals(""))
-        {
+        if (!fullnamecorso.equals("")) {
             getSupportActionBar().setTitle(fullnamecorso);
         }
 
     }
-
-
 
 
     /**
@@ -66,7 +61,7 @@ public class VCourse extends AppCompatActivity {
 
         private ListView listview;
 
-        private HashMap<Long,Boolean> sectionHasFile;
+        private HashMap<Long, Boolean> sectionHasFile;
 
 
         @Override
@@ -74,39 +69,32 @@ public class VCourse extends AppCompatActivity {
                                  Bundle savedInstanceState) {
 
             View root = inflater.inflate(R.layout.fragment_course, container, false);
-            listview= (ListView) root.findViewById(R.id.course_listView_listsections);
+            listview = (ListView) root.findViewById(R.id.course_listView_listsections);
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                     long idsection = ((Section) listview.getAdapter().getItem(i)).getId();
                     String sectionnumber = ((Section) listview.getAdapter().getItem(i)).getNumber();
-
-                    System.out.println("HAI CLICCATO SULLA SECTION CON ID " + idsection + " E SECTION NUMBER " + sectionnumber);
-                    Intent intent = new Intent(getActivity(),VSection.class);
-                    Controller.currentSectionId=idsection;
+                    Intent intent = new Intent(getActivity(), VSection.class);
+                    Controller.currentSectionId = idsection;
                     getActivity().startActivity(intent);
                 }
             });
-            long idCorso = ((VCourse)getActivity()).idCorso;
+            long idCorso = ((VCourse) getActivity()).idCorso;
             sectionHasFile = new HashMap<>();
             ArrayList<Section> sectionsCourse = Controller.getInstance().getUser().getCourse(idCorso).getSections();
-            for (int i=0; i<sectionsCourse.size(); i++)
-            {
+            for (int i = 0; i < sectionsCourse.size(); i++) {
                 Long currentSectionId = sectionsCourse.get(i).getId();
-                sectionHasFile.put(currentSectionId,false);
+                sectionHasFile.put(currentSectionId, false);
             }
-            System.out.println("MAP HAS FILE APPENA CREATA " + sectionHasFile.toString());
 
             ArrayList<it.univaq.khestodocente.model.File> filesCourse = Controller.getInstance().getUser().getCourse(idCorso).getFiles();
-            for (int i=0; i < filesCourse.size(); i++)
-            {
+            for (int i = 0; i < filesCourse.size(); i++) {
                 long currentSectionId = filesCourse.get(i).getSectionid();
 
                 sectionHasFile.put(currentSectionId, true);
             }
-
-            System.out.println("MAP SECTION HAS FILE DOPO I TRUE " + sectionHasFile.toString());
 
             listview.setAdapter(new MyAdapter(getActivity(), sectionsCourse));
 
@@ -119,12 +107,11 @@ public class VCourse extends AppCompatActivity {
             private Context mContext;
             private ArrayList<Section> data;
 
-            public MyAdapter( Context context, ArrayList<Section> sections) {
+            public MyAdapter(Context context, ArrayList<Section> sections) {
                 this.data = sections;
                 this.mContext = context;
                 this.inflater = LayoutInflater.from(mContext);
             }
-
 
 
             @Override
@@ -145,46 +132,38 @@ public class VCourse extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 ViewHolder holder;
-                if (convertView == null)
-                {
-                    convertView = inflater.inflate(R.layout.adapter_section,null);
+                if (convertView == null) {
+                    convertView = inflater.inflate(R.layout.adapter_section, null);
                     holder = new ViewHolder();
 
-                    holder.title= (TextView) convertView.findViewById(R.id.adapter_section_sectiontitle);
-                    holder.description= (TextView) convertView.findViewById(R.id.adapter_section_sectiondescription);
-                    holder.clipicon=(ImageView) convertView.findViewById(R.id.adapter_section_imageView_hasfiles);
+                    holder.title = (TextView) convertView.findViewById(R.id.adapter_section_sectiontitle);
+                    holder.description = (TextView) convertView.findViewById(R.id.adapter_section_sectiondescription);
+                    holder.clipicon = (ImageView) convertView.findViewById(R.id.adapter_section_imageView_hasfiles);
                     convertView.setTag(holder);
-                }
-                else {
+                } else {
                     holder = (ViewHolder) convertView.getTag();
                 }
 
-                Section section = (Section)getItem(position);
-                if (!section.getTitle().equals("null"))
-                {
+                Section section = (Section) getItem(position);
+                if (!section.getTitle().equals("null")) {
                     holder.title.setText(section.getTitle());
-                }
-                else
-                {
-                    holder.title.setText("Section " + section.getNumber());
+                } else {
+                    holder.title.setText(getResources().getString(R.string.section) + section.getNumber());
                 }
 
-                if (((Section) getItem(position)).getDescription().length() > 0){
+                if (((Section) getItem(position)).getDescription().length() > 0) {
                     holder.description.setText(section.getDescription());
                     holder.description.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     holder.description.setVisibility(View.GONE);
                 }
 
-                long currentsectionId= section.getId();
+                long currentsectionId = section.getId();
 
 
-                if (sectionHasFile.get(currentsectionId))
-                {
+                if (sectionHasFile.get(currentsectionId)) {
                     holder.clipicon.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     holder.clipicon.setVisibility(View.GONE);
                 }
                 return convertView;

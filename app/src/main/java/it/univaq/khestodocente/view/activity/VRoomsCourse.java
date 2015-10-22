@@ -35,24 +35,18 @@ public class VRoomsCourse extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayList<Course> corsi = Controller.getInstance().getUser().getCourses();
-        String fullnamecorso= "";
+        String fullnamecorso = "";
         boolean trovato = false;
-        for (int i=0; i<corsi.size() && !trovato; i++)
-        {
-            if (corsi.get(i).getId() == idCorso)
-            {
+        for (int i = 0; i < corsi.size() && !trovato; i++) {
+            if (corsi.get(i).getId() == idCorso) {
                 trovato = true;
                 fullnamecorso = corsi.get(i).getName();
             }
         }
-        if (!fullnamecorso.equals(""))
-        {
-            getSupportActionBar().setTitle( getResources().getString(R.string.rooms_of) + " " + fullnamecorso);
+        if (!fullnamecorso.equals("")) {
+            getSupportActionBar().setTitle(getResources().getString(R.string.rooms_of) + " " + fullnamecorso);
         }
     }
-
-
-
 
 
     public static class VChatsCourseFragment extends Fragment {
@@ -66,23 +60,23 @@ public class VRoomsCourse extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View root = inflater.inflate(R.layout.fragment_rooms_course, container, false);
-            listRooms= (ListView) root.findViewById(R.id.roomscourse_listview_listrooms);
+            listRooms = (ListView) root.findViewById(R.id.roomscourse_listview_listrooms);
             listRooms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                     long idchat = ((Chat) listRooms.getAdapter().getItem(i)).getId();
-                    Intent intent = new Intent(getActivity(),ChatDetails.class);
-                    Controller.currentChatId=idchat;
+                    Intent intent = new Intent(getActivity(), ChatDetails.class);
+                    Controller.currentChatId = idchat;
                     getActivity().startActivity(intent);
 
                 }
             });
-            long idCorso = ((VRoomsCourse)getActivity()).idCorso;
+            long idCorso = ((VRoomsCourse) getActivity()).idCorso;
             ArrayList<Chat> courseChats = Controller.getInstance().getUser().getCourse(idCorso).getChats();
-            listRooms.setAdapter(new MyAdapter(getActivity(),courseChats));
+            listRooms.setAdapter(new MyAdapter(getActivity(), courseChats));
 
-            return  root;
+            return root;
         }
 
         private class MyAdapter extends BaseAdapter {
@@ -91,12 +85,11 @@ public class VRoomsCourse extends AppCompatActivity {
             private Context mContext;
             private ArrayList<Chat> data;
 
-            public MyAdapter( Context context, ArrayList<Chat> chats) {
+            public MyAdapter(Context context, ArrayList<Chat> chats) {
                 this.data = chats;
                 this.mContext = context;
                 this.inflater = LayoutInflater.from(mContext);
             }
-
 
 
             @Override
@@ -117,32 +110,26 @@ public class VRoomsCourse extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 ViewHolder holder;
-                if (convertView == null)
-                {
-                    convertView = inflater.inflate(R.layout.adapter_room,null);
+                if (convertView == null) {
+                    convertView = inflater.inflate(R.layout.adapter_room, null);
                     holder = new ViewHolder();
 
-                    holder.name= (TextView) convertView.findViewById(R.id.adapter_room_title);
-                    holder.description= (TextView) convertView.findViewById(R.id.adapter_room_description);
+                    holder.name = (TextView) convertView.findViewById(R.id.adapter_room_title);
+                    holder.description = (TextView) convertView.findViewById(R.id.adapter_room_description);
                     convertView.setTag(holder);
-                }
-                else {
+                } else {
                     holder = (ViewHolder) convertView.getTag();
                 }
-                Chat chat = (Chat)getItem(position);
-                if (!chat.getTitle().equals("null"))
-                {
+                Chat chat = (Chat) getItem(position);
+                if (!chat.getTitle().equals("null")) {
                     holder.name.setText(chat.getTitle());
-                }
-                else
-                {
+                } else {
                     holder.name.setText(getResources().getString(R.string.unnamed_chat));
                 }
-                if (((Chat) getItem(position)).getDescription().length() > 0){
+                if (((Chat) getItem(position)).getDescription().length() > 0) {
                     holder.description.setText(chat.getDescription());
                     holder.description.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     holder.description.setVisibility(View.GONE);
                 }
 

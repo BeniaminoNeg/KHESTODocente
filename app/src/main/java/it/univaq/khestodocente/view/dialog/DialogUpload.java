@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
@@ -59,6 +60,8 @@ public class DialogUpload extends DialogFragment {
 
     private Button sfogliaButton;
 
+    private static Context mContext;
+
     public static final int REQUESTFILE = 9001;
 
     private Uri urifile;
@@ -71,6 +74,7 @@ public class DialogUpload extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
+        mContext = getActivity();
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         // Inflate and set the layout for the dialog
@@ -152,9 +156,9 @@ public class DialogUpload extends DialogFragment {
         return builder.create();
     }
 
-    private class UploadFileTask extends AsyncTask <File,Void,File>{
+    private class UploadFileTask extends AsyncTask <File,Void,String>{
         @Override
-        protected File doInBackground(File... files) {
+        protected String doInBackground(File... files) {
             URL url = Url.getUploadfileURL();
 
             System.out.println("URL per l' upload: " + url);
@@ -175,33 +179,34 @@ public class DialogUpload extends DialogFragment {
 
                     multipart.addHeaderField("User-Agent", "JavaCode");
                     multipart.addHeaderField("Test-Header", "Header-Value");
-                    multipart.addFilePart("fileUpload", files[0]);
 
-                    multipart.addFormField("author", author);
-                    multipart.addFormField("course", stringCourseId);
+                    //multipart.addFormField("author", author);
                     //multipart.addFormField("add","add");
-                    multipart.addFormField("postName", namefile);
-                    multipart.addFormField("postDescription", descriptionfile);
-                    multipart.addFormField("section", stringSectionId);
-                    //multipart.addFormField("itemid", "null");
+                    //multipart.addFormField("itemid", "-1");
                     multipart.addFormField("userid", userId);
+                    multipart.addFormField("username", username);
+                    multipart.addFormField("course", stringCourseId);
+                    multipart.addFormField("section", stringSectionId);
+                    multipart.addFormField("postName", namefile);
+                    multipart.addFormField("postText", descriptionfile);
+                    multipart.addFilePart("image", files[0]);
 
-                    System.out.println("files[0] " + files[0]);
+                    System.out.println("image " + files[0]);
 
                     List<String> response = multipart.finish();
-                    //TODO lancia eccezione con codice ritornato dal server 500, capire cosa c'è che non va
-                    System.out.println("SERVER REPLIED:");
 
+                    System.out.println("SERVER REPLIED:");
+                    StringBuilder sb = new StringBuilder();
                     for (String line : response) {
                         System.out.println(line);
+                        sb.append(line);
                     }
-
-
+                    return sb.toString();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            return files[0];
+            return null;
         }
 
         public boolean isOnline() {
@@ -212,21 +217,18 @@ public class DialogUpload extends DialogFragment {
         }
 
         @Override
-        protected void onPostExecute(File file) {
-            //TODO dare un feedback mediante toast
-            /*
-            super.onPostExecute(list);
-            String text = "SERVER REPLIED: ";
-            int duration = Toast.LENGTH_SHORT;
-            for (String line : list)
-            {
-                text = text + line;
+        protected void onPostExecute(String result) {
+
+            if (result != null){
+                String text = "SERVER REPLIED: " + result;
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast;
+                toast = Toast.makeText(mContext, text, duration);
+                toast.show();
+                new UpdateFileListTask().execute();
             }
-            Toast toast;
-            toast = Toast.makeText(getActivity(), text, duration);
-            toast.show();
-            */
-            new UpdateFileListTask().execute();
+
+
 
         }
     }

@@ -159,10 +159,9 @@ public class VSection extends AppCompatActivity {
                 }
                 File currentfile = (File)getItem(position);
                 holder.filename.setText(currentfile.getFilename());
-                holder.author.setText("Author: " + currentfile.getAuthor());
+                holder.author.setText(getResources().getString(R.string.autor) + currentfile.getAuthor());
                 long timestamp = currentfile.getTime();
                 String date = Controller.getInstance().parseMyDate(timestamp);
-                System.out.println("DATA " + date);
                 holder.date.setText(date);
                 holder.corso.setVisibility(View.GONE);
                 return convertView;

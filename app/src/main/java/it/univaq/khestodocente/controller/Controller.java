@@ -24,20 +24,14 @@ import it.univaq.khestodocente.model.User;
  */
 public class Controller {
 
+    public static long currentCourseId;
+    public static long currentSectionId;
+    public static long currentChatId;
     private static Controller instance = null;
-
     private User mUser;
 
-    public static long currentCourseId;
-
-    public static long currentSectionId;
-
-    public static long currentChatId;
-
-
-
-    public static Controller getInstance(){
-        if(instance == null) instance = new Controller();
+    public static Controller getInstance() {
+        if (instance == null) instance = new Controller();
         return instance;
     }
 
@@ -49,26 +43,24 @@ public class Controller {
         this.mUser = mUser;
     }
 
-    public String parseMyDate (long timestamp){
+    public String parseMyDate(long timestamp) {
         Calendar calendar = Calendar.getInstance(Locale.ITALY);
         calendar.setTimeInMillis(timestamp);
-        String day = ((Integer)calendar.get(Calendar.DAY_OF_MONTH)).toString();
+        String day = ((Integer) calendar.get(Calendar.DAY_OF_MONTH)).toString();
         int monthminusone = calendar.get(Calendar.MONTH);
-        Integer integermonth = monthminusone +1;
+        Integer integermonth = monthminusone + 1;
         String month = integermonth.toString();
-        String year = ((Integer)calendar.get(Calendar.YEAR)).toString();
+        String year = ((Integer) calendar.get(Calendar.YEAR)).toString();
 
         Integer integerHour = calendar.get(Calendar.HOUR);
         String hour = integerHour.toString();
-        if (integerHour<10)
-        {
+        if (integerHour < 10) {
             hour = "0" + hour;
         }
 
         Integer integerMinute = calendar.get(Calendar.MINUTE);
         String minute = integerMinute.toString();
-        if (integerMinute<10)
-        {
+        if (integerMinute < 10) {
             minute = "0" + minute;
         }
 
